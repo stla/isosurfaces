@@ -33,13 +33,15 @@ type Color = Color4 GLfloat
 
 fun :: XYZ F -> F
 fun (x,y,z) =
-  cos(4.0*x/(x*x+y*y+z*z+0.2)) * sin(4.0*y/(x*x+y*y+z*z+0.2)) +
-  cos(4.0*y/(x*x+y*y+z*z+0.2)) * sin(4.0*z/(x*x+y*y+z*z+0.2)) +
-  cos(4.0*z/(x*x+y*y+z*z+0.2)) * sin(4.0*x/(x*x+y*y+z*z+0.2)) +
-  exp(0.5*(x*x+y*y+z*z - 0.1))
+  cos(4.0*x/(sqnorm+0.2)) * sin(4.0*y/(sqnorm+0.2)) +
+  cos(4.0*y/(sqnorm+0.2)) * sin(4.0*z/(sqnorm+0.2)) +
+  cos(4.0*z/(sqnorm+0.2)) * sin(4.0*x/(sqnorm+0.2)) +
+  exp(0.5*(sqnorm - 0.1))
+  where
+    sqnorm = x*x+y*y+z*z
 
 voxel :: Voxel F
-voxel = makeVoxel fun ((-1,1),(-1,1),(-1,1)) (150, 150, 150)
+voxel = makeVoxel fun ((-1,1), (-1,1), (-1,1)) (200, 200, 200)
 
 invader :: Mesh F
 invader = makeMesh voxel 0
@@ -133,8 +135,8 @@ keyboard rot1 rot2 rot3 zoom anim delay save c _ = do
     'y' -> rot2 $~! (+ 2)
     'u' -> rot3 $~! subtract 2
     'i' -> rot3 $~! (+ 2)
-    'm' -> zoom $~! (+ 1)
-    'l' -> zoom $~! subtract 1
+    'm' -> zoom $~! (+ 0.25)
+    'l' -> zoom $~! subtract 0.25
     'a' -> anim $~! not
     'o' -> delay $~! (+10000)
     'p' -> delay $~! (\d -> if d==0 then 0 else d-10000)
@@ -168,7 +170,7 @@ main :: IO ()
 main = do
   _ <- getArgsAndInitialize
   _ <- createWindow "Invader"
-  windowSize $= Size 500 500
+  windowSize $= Size 512 512
   initialDisplayMode $= [RGBAMode, DoubleBuffered, WithDepthBuffer]
   clearColor $= white
   materialAmbient Front $= black
