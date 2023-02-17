@@ -1,14 +1,14 @@
 name:                isosurfaces
 version:             0.1.0.0
--- synopsis:
--- description:
+synopsis:            Some isosurfaces
+description:         Gallery of isosurfaces with Haskell OpenGL.
 homepage:            https://github.com/githubuser/isosurfaces#readme
 license:             BSD3
 license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2023 Author name here
-category:            Web
+author:              Stéphane Laurent
+maintainer:          laurent_step@outlook.fr
+copyright:           2023 Stéphane Laurent
+category:            Graphics
 build-type:          Simple
 extra-source-files:  README.md
                      CHANGELOG.md
