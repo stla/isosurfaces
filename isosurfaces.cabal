@@ -16,7 +16,8 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     OpenGL.Invader
+  exposed-modules:     OpenGL.BarthSextic
+                     , OpenGL.Invader
                      , OpenGL.Mandelbulb
                      , OpenGL.SpiderCage
   other-modules:       Colors.Palettes
