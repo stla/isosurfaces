@@ -2,7 +2,7 @@ name:                isosurfaces
 version:             0.1.0.0
 synopsis:            Some isosurfaces
 description:         Gallery of isosurfaces with Haskell OpenGL.
-homepage:            https://github.com/githubuser/isosurfaces#readme
+homepage:            https://github.com/stla/isosurfaces#readme
 license:             BSD3
 license-file:        LICENSE
 author:              Stéphane Laurent
@@ -17,6 +17,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     OpenGL.Invader
+                     , OpenGL.Mandelbulb
                      , OpenGL.SpiderCage
   other-modules:       Colors.Palettes
                      , Colors.ColorRamp
@@ -44,4 +45,4 @@ library
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/isosurfaces
+  location: https://github.com/stla/isosurfaces

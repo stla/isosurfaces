@@ -1,0 +1,5 @@
+## https://github.com/ndmitchell/hlint/blob/master/.hlint.yaml#L59
+## https://github.com/commercialhaskell/stack/blob/master/.hlint.yaml
+- ignore: {name: "Use head"}
+- ignore: {name: "Use camelCase"}
+
