@@ -5,3 +5,5 @@
 ![](gallery/spiderCage.gif)
 
 ![](gallery/mandelbulb.gif)
+
+![](gallery/barthSextic.gif)

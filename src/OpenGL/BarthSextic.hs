@@ -49,12 +49,12 @@ fun (x,y,z) =
 gradient :: XYZ F -> XYZ F
 gradient (x,y,z) =
   (
-    (8*x*phi2*(z2*phi2-x2)*(y2*phi2-z2) - 8*x*(x2*phi2-y2)*(y2*phi2-z2)
-     - 4*x*(2*phi+1)*(x2+y2+z2-1)),
-    (8*y*phi2*(x2*phi2-y2)*(z2*phi2-x2) - 8*y*(z2*phi2-x2)*(y2*phi2-z2)
-     - 4*y*(2*phi+1)*(x2+y2+z2-1)),
-    (8*z*phi2*(x2*phi2-y2)*(y2*phi2-z2) - 8*z*(x2*phi2-y2)*(z2*phi2-x2)
-     - 4*z*(2*phi+1)*(x2+y2+z2-1))
+    8*x*phi2*(z2*phi2-x2)*(y2*phi2-z2) - 8*x*(x2*phi2-y2)*(y2*phi2-z2)
+     - 4*x*(2*phi+1)*(x2+y2+z2-1),
+    8*y*phi2*(x2*phi2-y2)*(z2*phi2-x2) - 8*y*(z2*phi2-x2)*(y2*phi2-z2)
+     - 4*y*(2*phi+1)*(x2+y2+z2-1),
+    8*z*phi2*(x2*phi2-y2)*(y2*phi2-z2) - 8*z*(x2*phi2-y2)*(z2*phi2-x2)
+     - 4*z*(2*phi+1)*(x2+y2+z2-1)
   )
   where
     x2 = x*x
@@ -62,6 +62,11 @@ gradient (x,y,z) =
     z2 = z*z
     phi = (1+sqrt 5)/2
     phi2 = phi*phi
+
+normaliz :: XYZ F -> XYZ F
+normaliz (x, y, z) = (x / nrm, y / nrm, z / nrm)
+  where
+    nrm = sqrt (x*x + y*y + z*z)
 
 voxel :: Voxel F
 voxel = makeVoxel fun ((-1.8, 1.8), (-1.8, 1.8), (-1.8, 1.8)) (150, 150, 150)
@@ -76,7 +81,7 @@ faces :: [[Int]]
 faces = snd $ fst barth
 
 normals :: Vector (XYZ F)
-normals =  snd barth --V.map gradient vertices
+normals =  V.map (normaliz . gradient) vertices
 
 triangle :: [Int] -> ((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F))
 triangle face =
@@ -108,12 +113,14 @@ display context = do
   swapBuffers
  where
   drawTriangle ((v1, v2, v3), (n1, n2, n3)) = do
-    materialDiffuse Front $= fuchsia
     normal (toNormal n1)
+    materialDiffuse Front $= fuchsia
     vertex (toVertex v1)
     normal (toNormal n2)
+    materialDiffuse Front $= fuchsia
     vertex (toVertex v2)
     normal (toNormal n3)
+    materialDiffuse Front $= fuchsia
     vertex (toVertex v3)
    where
     toNormal (x, y, z) = Normal3 x y z
@@ -125,7 +132,7 @@ resize zoom s@(Size w h) = do
   matrixMode $= Projection
   loadIdentity
   perspective 45.0 (realToFrac w / realToFrac h) 1.0 100.0
-  lookAt (Vertex3 0 0 (-6 + zoom)) (Vertex3 0 0 0) (Vector3 0 1 0)
+  lookAt (Vertex3 0 0 (-5 + zoom)) (Vertex3 0 0 0) (Vector3 0 1 0)
   matrixMode $= Modelview 0
 
 keyboard
@@ -189,14 +196,14 @@ main = do
   initialDisplayMode $= [RGBAMode, DoubleBuffered, WithDepthBuffer]
   clearColor $= discord
   materialAmbient Front $= black
-  materialDiffuse Front $= white
-  materialEmission Front $= black
+--  materialDiffuse Front $= white
+--  materialEmission Front $= black
   --materialSpecular Front $= white
   --materialShininess Front $= 50
   lighting $= Enabled
   light (Light 0) $= Enabled
-  position (Light 0) $= Vertex4 500 500 (-1000) 1
-  ambient (Light 0) $= white
+  position (Light 0) $= Vertex4 50 (-100) (-100) 1
+  ambient (Light 0) $= black
   diffuse (Light 0) $= white
   specular (Light 0) $= white
   --lightModelAmbient $= Color4 0.35 0.35 0.35 1
