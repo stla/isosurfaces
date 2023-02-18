@@ -52,13 +52,13 @@ invader :: Mesh F
 invader = makeMesh voxel 0
 
 vertices :: Vector (XYZ F)
-vertices = fst $ fst invader
+vertices = _vertices invader
 
-faces :: [[Int]]
-faces = snd $ fst invader
+faces :: [(Int, Int, Int)]
+faces = _faces invader
 
 normals :: Vector (XYZ F)
-normals = snd invader
+normals = _normals invader
 
 funColor :: F -> F -> F -> Color
 funColor dmin dmax d = clrs !! j
@@ -74,7 +74,7 @@ colors = V.map (funColor dmin dmax) ds
   dmax = V.maximum ds
 
 triangle
-  :: [Int]
+  :: (Int, Int, Int)
   -> ((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F), (Color, Color, Color))
 triangle face =
   ( (vertices ! i, vertices ! j, vertices ! k)
@@ -82,9 +82,7 @@ triangle face =
   , (colors ! i  , colors ! j  , colors ! k)
   )
  where
-  i = face !! 0
-  j = face !! 2
-  k = face !! 1
+  (i, j, k) = face
 
 triangles
   :: [((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F), (Color, Color, Color))]

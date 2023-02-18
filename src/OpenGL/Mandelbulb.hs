@@ -62,13 +62,13 @@ mandelbulb :: Mesh F
 mandelbulb = makeMesh voxel 0.01
 
 vertices :: Vector (XYZ F)
-vertices = fst $ fst mandelbulb
+vertices = _vertices mandelbulb
 
-faces :: [[Int]]
-faces = snd $ fst mandelbulb
+faces :: [(Int, Int, Int)]
+faces = _faces mandelbulb
 
 normals :: Vector (XYZ F)
-normals = snd mandelbulb
+normals = _normals mandelbulb
 
 funColor :: F -> F -> F -> Color
 funColor dmin dmax d = clrs !! j
@@ -84,7 +84,7 @@ colors = V.map (funColor dmin dmax) ds
   dmax = V.maximum ds
 
 triangle
-  :: [Int]
+  :: (Int, Int, Int)
   -> ((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F), (Color, Color, Color))
 triangle face =
   ( (vertices ! i, vertices ! j, vertices ! k)
@@ -92,9 +92,7 @@ triangle face =
   , (colors ! i  , colors ! j  , colors ! k)
   )
  where
-  i = face !! 0
-  j = face !! 2
-  k = face !! 1
+  (i, j, k) = face
 
 triangles
   :: [((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F), (Color, Color, Color))]

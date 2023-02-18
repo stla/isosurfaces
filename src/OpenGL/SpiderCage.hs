@@ -50,13 +50,13 @@ spiderCage :: Mesh F
 spiderCage = makeMesh voxel 0.5
 
 vertices :: Vector (XYZ F)
-vertices = fst $ fst spiderCage
+vertices = _vertices spiderCage
 
-faces :: [[Int]]
-faces = snd $ fst spiderCage
+faces :: [(Int, Int, Int)]
+faces = _faces spiderCage
 
 normals :: Vector (XYZ F)
-normals = snd spiderCage
+normals = _normals spiderCage
 
 funColor :: F -> F -> F -> Color
 funColor dmin dmax d = clrs !! j
@@ -72,7 +72,7 @@ colors = V.map (funColor dmin dmax) ds
   dmax = V.maximum ds
 
 triangle
-  :: [Int]
+  :: (Int, Int, Int)
   -> ((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F), (Color, Color, Color))
 triangle face =
   ( (vertices ! i, vertices ! j, vertices ! k)
@@ -80,9 +80,7 @@ triangle face =
   , (colors ! i  , colors ! j  , colors ! k)
   )
  where
-  i = face !! 0
-  j = face !! 2
-  k = face !! 1
+  (i, j, k) = face
 
 triangles
   :: [((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F), (Color, Color, Color))]

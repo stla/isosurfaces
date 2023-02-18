@@ -36,7 +36,7 @@ type F = Float
 
 fun :: XYZ F -> F
 fun (x,y,z) = 
-  if x2+y2+z2<3
+  if x2 + y2 + z2 < 3
     then 4*(phi2*x2-y2)*(phi2*y2-z2)*(phi2*z2-x2) - (1+2*phi)*(x2+y2+z2-1)*(x2+y2+z2-1)
     else 0/0
   where
@@ -75,23 +75,21 @@ barth :: Mesh F
 barth = makeMesh voxel 0
 
 vertices :: Vector (XYZ F)
-vertices = fst $ fst barth
+vertices = _vertices barth
 
-faces :: [[Int]]
-faces = snd $ fst barth
+faces :: [(Int, Int, Int)]
+faces = _faces barth
 
 normals :: Vector (XYZ F)
 normals =  V.map (normaliz . gradient) vertices
 
-triangle :: [Int] -> ((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F))
+triangle :: (Int, Int, Int) -> ((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F))
 triangle face =
   ( (vertices ! i, vertices ! j, vertices ! k)
   , (normals ! i , normals ! j , normals ! k)
   )
  where
-  i = face !! 0
-  j = face !! 2
-  k = face !! 1
+  (i, j, k) = face
 
 triangles :: [((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F))]
 triangles = map triangle faces
