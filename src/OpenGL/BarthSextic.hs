@@ -113,14 +113,12 @@ display context = do
   swapBuffers
  where
   drawTriangle ((v1, v2, v3), (n1, n2, n3)) = do
-    normal (toNormal n1)
     materialDiffuse Front $= fuchsia
+    normal (toNormal n1)
     vertex (toVertex v1)
     normal (toNormal n2)
-    materialDiffuse Front $= fuchsia
     vertex (toVertex v2)
     normal (toNormal n3)
-    materialDiffuse Front $= fuchsia
     vertex (toVertex v3)
    where
     toNormal (x, y, z) = Normal3 x y z
@@ -196,9 +194,6 @@ main = do
   initialDisplayMode $= [RGBAMode, DoubleBuffered, WithDepthBuffer]
   clearColor $= discord
   materialAmbient Front $= black
---  materialDiffuse Front $= white
---  materialEmission Front $= black
-  --materialSpecular Front $= white
   --materialShininess Front $= 50
   lighting $= Enabled
   light (Light 0) $= Enabled
@@ -206,17 +201,9 @@ main = do
   ambient (Light 0) $= black
   diffuse (Light 0) $= white
   specular (Light 0) $= white
-  --lightModelAmbient $= Color4 0.35 0.35 0.35 1
-  -- light (Light 1) $= Enabled
-  -- position (Light 1) $= Vertex4 (0) (100) (0) 1
-  -- ambient (Light 1) $= black
-  -- diffuse (Light 1) $= white
-  -- specular (Light 1) $= white
   depthFunc $= Just Less
   shadeModel $= Smooth
   cullFace $= Just Back
-  --rescaleNormal $= Enabled
-  --polygonSmooth $= Enabled
   rot1 <- newIORef 0.0
   rot2 <- newIORef 0.0
   rot3 <- newIORef 0.0
