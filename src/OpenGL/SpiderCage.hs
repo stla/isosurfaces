@@ -1,4 +1,4 @@
-module OpenGL.Invader
+module OpenGL.SpiderCage
   ( main
   ) where
 import           Colors.ColorRamp
@@ -35,35 +35,33 @@ type F = Float
 type Color = Color4 GLfloat
 
 fun :: XYZ F -> F
-fun (x, y, z) =
-  cos (4.0 * x / (sqnorm + 0.2))
-    * sin (4.0 * y / (sqnorm + 0.2))
-    + cos (4.0 * y / (sqnorm + 0.2))
-    * sin (4.0 * z / (sqnorm + 0.2))
-    + cos (4.0 * z / (sqnorm + 0.2))
-    * sin (4.0 * x / (sqnorm + 0.2))
-    + exp (0.5 * (sqnorm - 0.1))
-  where sqnorm = x * x + y * y + z * z
+fun (x,y,z) =
+  sq(sqrt(sq(x2 - y2) / (x2 + y2) + 3 * sq(z * sin 0.9)) - 3) 
+    + 6 * sq(sqrt(sq(x * y) / (x2 + y2) + sq(z * cos 0.9)) - 1.5)
+  where
+    sq a = a * a
+    x2 = sq x
+    y2 = sq y
 
 voxel :: Voxel F
-voxel = makeVoxel fun ((-1, 1), (-1, 1), (-1, 1)) (200, 200, 200)
+voxel = makeVoxel fun ((-4.7, 4.7),(-4.7, 4.7),(-2.8, 2.8)) (200, 200, 150)
 
-invader :: Mesh F
-invader = makeMesh voxel 0
+spiderCage :: Mesh F
+spiderCage = makeMesh voxel 0
 
 vertices :: Vector (XYZ F)
-vertices = fst $ fst invader
+vertices = fst $ fst spiderCage
 
 faces :: [[Int]]
-faces = snd $ fst invader
+faces = snd $ fst spiderCage
 
 normals :: Vector (XYZ F)
-normals = snd invader
+normals = snd spiderCage
 
 funColor :: F -> F -> F -> Color
 funColor dmin dmax d = clrs !! j
  where
-  clrs = colorRamp "inferno" 256
+  clrs = colorRamp "magma" 256
   j    = floor ((d - dmin) * 255 / (dmax - dmin))
 
 colors :: Vector Color
@@ -185,7 +183,7 @@ idle anim delay save snapshots rot3 = do
 main :: IO ()
 main = do
   _ <- getArgsAndInitialize
-  _ <- createWindow "Invader"
+  _ <- createWindow "Spider cage"
   windowSize $= Size 512 512
   initialDisplayMode $= [RGBAMode, DoubleBuffered, WithDepthBuffer]
   clearColor $= white
@@ -216,7 +214,7 @@ main = do
   keyboardCallback $= Just (keyboard rot1 rot2 rot3 zoom anim delay save)
   idleCallback $= Just (idle anim delay save snapshots rot3)
   putStrLn
-    "*** Invader ***\n\
+    "*** Spider cage ***\n\
         \    To quit, press q.\n\
         \    Scene rotation:\n\
         \        e, r, t, y, u, i\n\
