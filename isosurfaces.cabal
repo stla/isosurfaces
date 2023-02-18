@@ -17,6 +17,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     OpenGL.Invader
+                     , OpenGL.SpiderCage
   other-modules:       Colors.Palettes
                      , Colors.ColorRamp
   build-depends:       base >= 4.7 && < 5

@@ -47,7 +47,7 @@ voxel :: Voxel F
 voxel = makeVoxel fun ((-4.7, 4.7),(-4.7, 4.7),(-2.8, 2.8)) (200, 200, 150)
 
 spiderCage :: Mesh F
-spiderCage = makeMesh voxel 0
+spiderCage = makeMesh voxel 0.5
 
 vertices :: Vector (XYZ F)
 vertices = fst $ fst spiderCage
@@ -124,7 +124,7 @@ resize zoom s@(Size w h) = do
   matrixMode $= Projection
   loadIdentity
   perspective 45.0 (realToFrac w / realToFrac h) 1.0 100.0
-  lookAt (Vertex3 0 (-3 + zoom) 0) (Vertex3 0 0 0) (Vector3 0 0 1)
+  lookAt (Vertex3 0 (-13 + zoom) 0) (Vertex3 0 0 0) (Vector3 0 0 1)
   matrixMode $= Modelview 0
 
 keyboard
