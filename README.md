@@ -7,3 +7,5 @@
 ![](gallery/mandelbulb.gif)
 
 ![](gallery/barthSextic.gif)
+
+![](gallery/goursat.gif)
