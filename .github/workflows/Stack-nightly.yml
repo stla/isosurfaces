@@ -10,7 +10,6 @@ jobs:
     strategy:
       matrix:
         runner:
-          - ubuntu-latest
           - macOS-latest
           - windows-latest
 
@@ -20,18 +19,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Install libgl
-        run: |
-          sudo apt-get install --yes libgl-dev
-
-      - name: Install mesa-utils
-        run: |
-          sudo apt-get install --yes mesa-utils
-
-      - name: Install freeglut3
-        run: |
-          sudo apt-get install --yes freeglut3-dev
 
       - uses: freckle/stack-action@v3
 

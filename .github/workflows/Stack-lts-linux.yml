@@ -1,4 +1,4 @@
-name: Stack-lts
+name: Stack-lts-linux
 
 on:
   pull_request:
@@ -9,10 +9,6 @@ jobs:
   test:
     strategy:
       matrix:
-        runner:
-          - macOS-latest
-          - windows-latest
-
         resolver:
           - lts       # ghc-9.2 (as of writing)
           - lts-20.11 # ghc-9.2
@@ -21,10 +17,22 @@ jobs:
 
       fail-fast: false
 
-    runs-on: ${{ matrix.runner }}
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install libgl
+        run: |
+          sudo apt-get install --yes libgl-dev
+
+      - name: Install mesa-utils
+        run: |
+          sudo apt-get install --yes mesa-utils
+
+      - name: Install freeglut3
+        run: |
+          sudo apt-get install --yes freeglut3-dev
 
       - uses: freckle/stack-action@v3
 
