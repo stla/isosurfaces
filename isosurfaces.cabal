@@ -24,7 +24,7 @@ library
   other-modules:       Colors.Palettes
                      , Colors.ColorRamp
   build-depends:       base >= 4.7 && < 5
-                     , marching-cubes
+                     , marching-cubes >= 0.1.0.0
                      , vector >= 0.12.3.1
                      , containers >= 0.6.4.1
                      , OpenGL >= 3.0.3.0

@@ -18,6 +18,13 @@ packages:
       size: 230
   original:
     hackage: gl-capture-0.1.0.0
+- completed:
+    hackage: marching-cubes-0.1.0.0@sha256:7d0a1f75c01e824848d938c1d280f055b41e8fa6348fe941fa6837ca87b22955,1840
+    pantry-tree:
+      sha256: 99cb1745e32a1d5908168b58716be5e076ade3a2b9b12f1aee5d14c1dea513e2
+      size: 664
+  original:
+    hackage: marching-cubes-0.1.0.0
 snapshots:
 - completed:
     sha256: adbc602422dde10cc330175da7de8609e70afc41449a7e2d6e8b1827aa0e5008

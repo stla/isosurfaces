@@ -1,0 +1,33 @@
+name: Stack-nightly
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        runner:
+          - ubuntu-latest
+          - macOS-latest
+          - windows-latest
+
+      fail-fast: false
+
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: freckle/stack-action@v3
+
+      - id: stack
+        uses: freckle/stack-action@v3
+        with:
+          stack-arguments: --resolver nightly --copy-bins --coverage
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: ${{ steps.stack.outputs.local-hpc-root }}
