@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -fno-warn-orphans      #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ScopedTypeVariables   #-}
 {-# LANGUAGE TemplateHaskell       #-}
