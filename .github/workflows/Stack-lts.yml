@@ -26,6 +26,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get install --yes libgl-dev
+
       - uses: freckle/stack-action@v3
 
       - id: stack
