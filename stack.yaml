@@ -1,10 +1,9 @@
-resolver: lts-20.11
+resolver: lts-19.33
 
 packages:
 - .
 
 extra-deps:
-- numeric-tools-0.2.0.1
-- gl-capture-0.1.0.0
-- marching-cubes-0.1.0.0
-
+  - numeric-tools-0.2.0.1
+  - gl-capture-0.1.0.0
+  - marching-cubes-0.1.0.0

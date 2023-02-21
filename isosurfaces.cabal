@@ -18,6 +18,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     OpenGL.BarthSextic
                      , OpenGL.Goursat
+                     , OpenGL.ICN5D
                      , OpenGL.Invader
                      , OpenGL.Mandelbulb
                      , OpenGL.SpiderCage
