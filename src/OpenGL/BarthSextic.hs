@@ -51,9 +51,9 @@ gradient (x,y,z) =
   (
     8*x*phi2*(z2*phi2-x2)*(y2*phi2-z2) - 8*x*(x2*phi2-y2)*(y2*phi2-z2)
      - 4*x*(2*phi+1)*(x2+y2+z2-1),
-    8*y*phi2*(x2*phi2-y2)*(z2*phi2-x2) - 8*y*(z2*phi2-x2)*(y2*phi2-z2)
+    8*y*phi2*(x2*phi2-y2)*(z2*phi2-x2) - 8*y*(y2*phi2-z2)*(z2*phi2-x2)
      - 4*y*(2*phi+1)*(x2+y2+z2-1),
-    8*z*phi2*(x2*phi2-y2)*(y2*phi2-z2) - 8*z*(x2*phi2-y2)*(z2*phi2-x2)
+    8*z*phi2*(y2*phi2-z2)*(x2*phi2-y2) - 8*z*(z2*phi2-x2)*(x2*phi2-y2)
      - 4*z*(2*phi+1)*(x2+y2+z2-1)
   )
   where
@@ -89,7 +89,7 @@ triangle face =
   , (normals ! i , normals ! j , normals ! k)
   )
  where
-  (i, j, k) = face
+  (i, k, j) = face
 
 triangles :: [((XYZ F, XYZ F, XYZ F), (XYZ F, XYZ F, XYZ F))]
 triangles = map triangle faces
@@ -195,7 +195,7 @@ main = do
   --materialShininess Front $= 50
   lighting $= Enabled
   light (Light 0) $= Enabled
-  position (Light 0) $= Vertex4 50 (-100) (-100) 1
+  position (Light 0) $= Vertex4 50 (-100) (-100) (-1)
   ambient (Light 0) $= black
   diffuse (Light 0) $= white
   specular (Light 0) $= white
